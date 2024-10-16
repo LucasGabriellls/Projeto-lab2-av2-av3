@@ -1,5 +1,4 @@
-from insert import *
-from cadastro import cadastrar_usuario
+from cliente import *
 
 #\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/#
 
@@ -18,8 +17,8 @@ def validar_login(user, key):
         print('Nenhuma Conta Existente...Tente novamente')
         os.system('pause')
         os.system('cls')
-        cadastrar_usuario()
         return
+    
     else:
         for i in lista_usuarios:
             if user == i['username'] and key == i['password']:
@@ -31,7 +30,6 @@ def validar_login(user, key):
         print('Nenhuma Conta Existente...Tente novamente')
         os.system('pause')
         os.system('cls')
-        cadastrar_usuario()
         return
     
 #\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/#
