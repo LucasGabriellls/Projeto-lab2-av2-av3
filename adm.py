@@ -1,5 +1,6 @@
 from produto import *
 from cliente import *
+from compra import *
 import os
 
 user_adm = 'adminMer' # senha de adm.
@@ -45,9 +46,7 @@ def menu_adm():
             listar_produtos()
         
         elif opc == 'LV':
-            print('Função em andamento')
-            ...#list_venda()
-            return
+            listar_venda()
         
         elif opc == 'AP':
             adicionar_prod()

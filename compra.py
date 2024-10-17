@@ -104,9 +104,6 @@ def list_prod_compra():
 #\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/#
 
 def menu_pagamento():
-    '''
-        Ver como vai ficar a questao de remover o produto do estoque e ver a questao do dinheito que vai entrar na conta do mercado.
-    '''
     total_compra_fim = dict()
     total_compra = 0
     id_compra = randint(0, 100)
@@ -138,19 +135,19 @@ def menu_pagamento():
         if forma_pagamento == 'P':
             total_compra_fim = {'valor_total' : total_compra, 'tipo_pagamento' : 'PIX', 'id_venda' : id_compra}
             fim_compra.append(total_compra_fim.copy)
-            pix(total_compra, total_compra_fim['id_venda'])
+            pix(total_compra)
             menu_compra()
         
         elif forma_pagamento == 'CC':
             total_compra_fim = {'valor_total' : total_compra, 'tipo_pagamento' : 'Cartao_credito', 'id_venda' : id_compra}
             fim_compra.append(total_compra_fim.copy)
-            cartao_credito(total_compra, total_compra_fim['id_venda'])
+            cartao_credito(total_compra)
             menu_compra()
         
         elif forma_pagamento == 'CD':
             total_compra_fim = {'valor_total' : total_compra, 'tipo_pagamento' : 'Cartao_Debito', 'id_venda' : id_compra}
             fim_compra.append(total_compra_fim.copy)
-            cartao_debito(total_compra, total_compra_fim['id_venda'])
+            cartao_debito(total_compra)
             menu_compra()
         
         else:
@@ -179,3 +176,11 @@ def menu_pagamento():
         menu_pagamento()
 
 #\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/#
+
+def listar_venda():
+    os.system('cls')
+    print('=' * 50)
+    print('Lista De Vendas')
+    print('=' * 50)
+    for i in fim_compra:
+        print(f'Valor: {i['valor_total']} | Forma de Pagamento: {i['tipo_pagamento']} | ID da Venda: {i['id_venda']}')
