@@ -10,7 +10,6 @@ def login():
     user = input('Digite o nome de usuário: ')
     key = input('Digite sua senha: ')
     validar_login(user, key)
-    menu_compra()
 
 #\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/#
 
@@ -27,6 +26,7 @@ def validar_login(user, key):
                 print('Seja Bem vindo!')
                 os.system('pause')
                 os.system('cls')
+                menu_compra()
                 return
             
         print('Nenhuma Conta Existente...Tente novamente')
