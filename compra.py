@@ -62,7 +62,7 @@ def compra():
                                 opc = input('Deseja Continuar Comprando? [S/N]').upper()
                                 if opc == 'S':
                                     compra()
-                                    break
+                                    return
 
                                 elif opc == 'N':
                                     menu_pagamento()
@@ -72,22 +72,29 @@ def compra():
                                     print('Valor Inserido Incorreto...')
                                     os.system('pause')
                                     os.system('cls')
+                                    compra()
+                                    return
 
                             else:
                                 print('Quantidade no Estoque Insuficiente...') 
                                 os.system('pause')
                                 os.system('cls')
+                                compra()
+                                return
                             
                         except ValueError:
                             print('Digite Um Valor Inteiro Para a Quantidade da Compra...')
                             os.system('pause')
                             os.system('cls')
+                            compra()
+                            return
 
             except ValueError:
                 print('Digite Um Valor Inteiro Para o ID do Produto...')
                 os.system('pause')
                 os.system('cls')
-
+                compra()
+                return
     else:
         print('Nenhum Produto Disponível..')
         os.system('pause')
@@ -137,18 +144,21 @@ def menu_pagamento():
             fim_compra.append(total_compra_fim.copy())
             pix(total_compra)
             menu_compra()
+            return
         
         elif forma_pagamento == 'CC':
             total_compra_fim = {'valor_total' : total_compra, 'tipo_pagamento' : 'Cartao_credito', 'id_venda' : id_compra}
             fim_compra.append(total_compra_fim.copy())
             cartao_credito(total_compra)
             menu_compra()
+            return
         
         elif forma_pagamento == 'CD':
             total_compra_fim = {'valor_total' : total_compra, 'tipo_pagamento' : 'Cartao_Debito', 'id_venda' : id_compra}
             fim_compra.append(total_compra_fim.copy())
             cartao_debito(total_compra)
             menu_compra()
+            return
         
         else:
             print('Digite um Valor de Acordo com o Menu')
