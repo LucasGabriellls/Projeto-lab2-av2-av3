@@ -24,11 +24,17 @@ def listar_cliente():
     print('=' * 50)
     print('CLIENTES CADASTRADOS')
     print('=' * 50)
-    for i in lista_usuarios:
-        print(f'Nome: {i['username']} | id: {i['id']}')
+    
+    if len(lista_usuarios) > 0:
+        for i in lista_usuarios:
+            print(f'Nome: {i['username']} | id: {i['id']}')
 
-    print('=' * 50)
-    os.system('pause')
-    os.system('cls')
+        print('=' * 50)
+        os.system('pause')
+        os.system('cls') 
+    else:
+        print('Nenhum Usuário Cadastrado...')
+        os.system('pause')
+        os.system('cls') 
     
 #\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/#

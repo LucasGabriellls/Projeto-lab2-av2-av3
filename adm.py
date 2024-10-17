@@ -38,7 +38,7 @@ def menu_adm():
     while True:
         os.system('cls')
         print('=' * 50)
-        print('Listar Produtos[LP] - Listar Vendas[LV] - Adicionar Produtos[AP] - Listar Cliente[LC] - Estoque Produto[EP] - Remover Produto[RM] - Sair[S]')
+        print('Listar Produtos[LP] - Listar Vendas[LV] - Adicionar Produtos[AP] - Listar Cliente[LC] - Estoque Produto[EP] - Remover Produto[RM] - Valor Produto[VP] - Sair[S]')
         opc = input('Sua Escolha: ').upper()
 
         if opc == 'LP':
@@ -60,6 +60,9 @@ def menu_adm():
         
         elif opc == 'RM':
             remover_produto()
+        
+        elif opc == 'VP':
+            add_valor_produto()
         
         elif opc == 'S':
             print('Voltando Para o Menu Principal...')
