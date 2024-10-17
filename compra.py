@@ -134,19 +134,19 @@ def menu_pagamento():
         forma_pagamento = input('Forma de Pagamento: ').upper()
         if forma_pagamento == 'P':
             total_compra_fim = {'valor_total' : total_compra, 'tipo_pagamento' : 'PIX', 'id_venda' : id_compra}
-            fim_compra.append(total_compra_fim.copy)
+            fim_compra.append(total_compra_fim.copy())
             pix(total_compra)
             menu_compra()
         
         elif forma_pagamento == 'CC':
             total_compra_fim = {'valor_total' : total_compra, 'tipo_pagamento' : 'Cartao_credito', 'id_venda' : id_compra}
-            fim_compra.append(total_compra_fim.copy)
+            fim_compra.append(total_compra_fim.copy())
             cartao_credito(total_compra)
             menu_compra()
         
         elif forma_pagamento == 'CD':
             total_compra_fim = {'valor_total' : total_compra, 'tipo_pagamento' : 'Cartao_Debito', 'id_venda' : id_compra}
-            fim_compra.append(total_compra_fim.copy)
+            fim_compra.append(total_compra_fim.copy())
             cartao_debito(total_compra)
             menu_compra()
         
@@ -156,6 +156,7 @@ def menu_pagamento():
             os.system('cls')
 
     elif opc == 'CC':
+        carrinho.pop()
         print('Compra Cancelada')
         print('Volte Sempre')
         os.system('pause')
@@ -184,3 +185,5 @@ def listar_venda():
     print('=' * 50)
     for i in fim_compra:
         print(f'Valor: {i['valor_total']} | Forma de Pagamento: {i['tipo_pagamento']} | ID da Venda: {i['id_venda']}')
+    os.system('pause')
+    os.system('cls')
