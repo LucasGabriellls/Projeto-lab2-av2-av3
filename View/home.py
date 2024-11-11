@@ -60,6 +60,7 @@ def sign_in():
     from Controller.user import User
 
     root = tk.Tk()
+    root.title('Super Kernel')
     root.geometry('1300x800')
     root.resizable(False, False)
     root.config(bg= 'White')
@@ -107,11 +108,22 @@ def sign_in():
 
 def adm_sign_in():
     root = tk.Tk()
+    root.title('Super Kernel')
     root.geometry('1300x800')
     root.resizable(False, False)
     root.config(bg= 'White')
     root.iconphoto(False, tk.PhotoImage(file = 'View/imgs/logo.png'))
 
+    label_title = tk.Label(root, width = 30, height = 2, text='Área do Administrador', font = ('Berlin Sans FB', 30, 'bold'), fg = '#d52b1e', bg= 'White') 
+    label_title.place(x= 300, y= -30)
+
+    frame_bar = tk.Frame(root, width= 1300, height= 80, bg= '#d52b1e')
+    frame_bar.pack_propagate(False)
+    frame_bar.pack(pady= 50)
+
+    frame_box = tk.Frame(root, width= 1000, height= 500, bg= '#d52b1e')
+    frame_box.pack_propagate(False)
+    frame_box.pack(pady= 30)
     root.mainloop()
 
 def call_record(root):
