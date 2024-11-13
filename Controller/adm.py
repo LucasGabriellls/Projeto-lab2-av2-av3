@@ -2,13 +2,13 @@ from tkinter import messagebox
 import pyotp
 import qrcode
 
-from View.adm_screen import *
+from View.adm_screen import admin_roles
 
 
 def auth():
         global totp
         key = pyotp.random_base32()
-        uri = pyotp.totp.TOTP(key).provisioning_uri(issuer_name="Super Kernel")
+        uri = pyotp.totp.TOTP(key).provisioning_uri(name='Admin Login', issuer_name='Super Kernel')
 
         qrcode.make(uri).save("./View/imgs/totp.png")  
         totp = pyotp.TOTP(key)
@@ -21,7 +21,8 @@ class admin:
     def validate_entry(self, root):
         if self.entry != "":
             if totp.verify(str(self.entry)):
-                print('ok')
+                root.destroy()
+                admin_roles()
             else:
                 messagebox.showerror('Erro', 'Código errado, tente novamente')
         else:
