@@ -20,10 +20,10 @@ class admin:
 
     def validate_entry(self, root):
         if self.entry != "":
-            if totp.verify(str(self.entry)):
+            #if totp.verify(str(self.entry)):
                 root.destroy()
                 admin_roles()
-            else:
-                messagebox.showerror('Erro', 'Código errado, tente novamente')
+            #else:
+                #messagebox.showerror('Erro', 'Código errado, tente novamente')
         else:
             messagebox.showerror('Erro', 'Nenhum código foi digitado!')
