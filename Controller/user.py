@@ -1,6 +1,8 @@
 from tkinter import messagebox
-from Model.market_db import DataBase
 import bcrypt
+
+from Model.market_db import DataBase
+from Controller.adm import admin, auth
 
 
 class User:
@@ -9,30 +11,30 @@ class User:
         self.email = email
         self.password = password
 
-    def validate_record(result, root):
+    def validate_record(self, root):
         from View.home import sign_in
 
-        void_box = User.validate_entry_record(result)
+        void_box = User.validate_entry_record(self)
         if void_box == True:
-            user = DataBase.record_list_user(result.email)
+            user = DataBase.record_list_user(self.email)
             if user:
                 messagebox.showinfo('Informação', 'Já existe usuário com esse email')
             else:
                 root.destroy()
-                User.insert_new_user(result)
+                User.insert_new_user(self)
                 sign_in()
         else:
             messagebox.showinfo('Informação', 'É necessário digitar NOME, EMAIL E SENHA!')
 
-    def validate_entry_record(result):
-        if result.email and result.name and result.password:
+    def validate_entry_record(self):
+        if self.email and self.name and self.password:
             return True
         else:
             return False
     
-    def Encrypt_password(result):
+    def Encrypt_password(self):
         try:
-            password = result.password
+            password = self.password
 
             password_bytes = password.encode('utf-8')
             salt = bcrypt.gensalt()
@@ -41,11 +43,11 @@ class User:
         except Exception as e:
            messagebox.showerror('ERRO', 'Criptografia mal-sucedida!')
     
-    def insert_new_user(result):
+    def insert_new_user(self):
         try:
-            name = result.name
-            email = result.email
-            password = User.Encrypt_password(result)
+            name = self.name
+            email = self.email
+            password = User.Encrypt_password(self)
 
             DataBase.insert_user(name= name, email= email, password= password)
             messagebox.showinfo('Informação', 'Seu cadastro foi realizado com sucesso!')
@@ -54,28 +56,29 @@ class User:
             messagebox.showerror('ERRO', 'Erro ao cadastrar usuário!')
 
 
-    def validate_sign_in(result, root):
+    def validate_sign_in(self, root):
         from View.home import adm_sign_in
 
         adm_password = 'admin123mer'
 
-        box_void = User.validate_entry_login(result)
+        box_void = User.validate_entry_login(self)
         if box_void:
-            if result.email == adm_password and result.password == adm_password:
+            if self.email == adm_password and self.password == adm_password:
                 root.destroy()
+                auth()
                 adm_sign_in()
             else:
-                result_select = DataBase.login_list_user(result.email)
+                result_select = DataBase.login_list_user(self.email)
 
                 if result_select:
                     try:
                         email, password = result_select
-                        password_validate = User.validate_password(result, password)
+                        password_validate = User.validate_password(self, password)
                         if password_validate:
                             root.destroy()
                             #buy()
                         else:
-                            messagebox.showinfo('Informação', 'Nenhum usuário encontradosss!')
+                            messagebox.showinfo('Informação', 'Nenhum usuário encontrado!')
 
                     except Exception as e:
                         messagebox.showerror('Erro', 'Erro ao verificar login!')
@@ -85,22 +88,22 @@ class User:
         else:
             messagebox.showinfo('Informação', 'É necessário digitar EMAIL E SENHA!')
         
-    def validate_entry_login(result):
-        if result.email and result.password:
+    def validate_entry_login(self):
+        if self.email and self.password:
             return True
         else:
             return False  
 
-    def validate_password(result, password_hash):
+    def validate_password(self, password_hash):
             try:
-                print(result.password)
-                password_bytes = result.password.encode('utf-8') 
-                print(type(result.password))
+                print(self.password)
+                password_bytes = self.password.encode('utf-8') 
+                print(type(self.password))
                 password_hash = password_hash.tobytes() 
                 print(password_hash)
                 print(password_bytes)
                 return bcrypt.checkpw(password_bytes, password_hash)
             
             except Exception as e:
-                messagebox.showerror('Erro', 'Eror ao validar senha!')
+                messagebox.showerror('Erro', 'Erro ao validar senha!')
                 return None

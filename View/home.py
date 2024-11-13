@@ -1,4 +1,6 @@
 import tkinter as tk
+from Controller.adm import admin
+
 
 def record():
     from Controller.user import User
@@ -21,7 +23,7 @@ def record():
     label_subtitle_sign_in.place(x = -260, y = 300)
 
     button_sign_in = tk.Button(frame_screen1, width = 20, height = 2, text='ENTRAR', font = ('Berlin Sans FB', 11), relief ='ridge', bg ='#d52b1e', fg ='White', 
-                                activeforeground = '#d52b1e', command = lambda: call_sign_in(root))
+                                activeforeground = '#d52b1e', command = lambda: (root.destroy(), sign_in()))
     button_sign_in.place(x = 150, y = 400)
 
     label_title_register = tk.Label(root, width = 30, height = 2, text = 'Criar Conta', font = ('Berlin Sans FB', 30, 'bold'), bg ='white', fg = '#d52b1e')
@@ -66,7 +68,7 @@ def sign_in():
     root.config(bg= 'White')
     root.iconphoto(False, tk.PhotoImage(file = 'View/imgs/logo.png'))
 
-    frame_screen1 = tk.Frame(root, width= '500', height= 800, bg = '#d52b1e')
+    frame_screen1 = tk.Frame(root, width= 500, height= 800, bg = '#d52b1e')
     frame_screen1.place(x= 800)
     frame_screen1.pack_propagate(False)
 
@@ -74,7 +76,7 @@ def sign_in():
     label_title_frame.place(x= -100, y= 250)
 
     button_record = tk.Button(frame_screen1, width= 20, height= 2, text='CADASTRAR', font = ('Berlin Sans FB', 11), relief ='ridge', bg ='#d52b1e', fg ='White', 
-                                activeforeground = '#d52b1e', command= lambda: call_record(root))
+                                activeforeground = '#d52b1e', command= lambda: (root.destroy(), record()))
     button_record.place(x= 180, y= 450)
 
     label_subtitle_frame = tk.Label(frame_screen1, width = 100, height = 2, text='Ainda não possui uma conta?', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e')
@@ -106,7 +108,7 @@ def sign_in():
 
     root.mainloop()
 
-def adm_sign_in():
+def adm_sign_in(): 
     root = tk.Tk()
     root.title('Super Kernel')
     root.geometry('1300x800')
@@ -114,25 +116,42 @@ def adm_sign_in():
     root.config(bg= 'White')
     root.iconphoto(False, tk.PhotoImage(file = 'View/imgs/logo.png'))
 
-    label_title = tk.Label(root, width = 30, height = 2, text='Área do Administrador', font = ('Berlin Sans FB', 30, 'bold'), fg = '#d52b1e', bg= 'White') 
-    label_title.place(x= 300, y= -30)
-
-    frame_bar = tk.Frame(root, width= 1300, height= 80, bg= '#d52b1e')
+    frame_bar = tk.Frame(root, width= 1300, height= 60, bg= '#d52b1e')
     frame_bar.pack_propagate(False)
-    frame_bar.pack(pady= 50)
+    frame_bar.pack()
 
-    frame_box = tk.Frame(root, width= 1000, height= 500, bg= '#d52b1e')
-    frame_box.pack_propagate(False)
-    frame_box.pack(pady= 30)
+    title_label = tk.Label(frame_bar, width = 30, height = 2, text='Autenticação de dois fatores (2FA).', font = ('Berlin Sans FB', 20, 'bold'), fg = 'White', bg= '#d52b1e')
+    title_label.pack()
+
+    subtitle1_label = tk.Label(root,  width = 100, height = 1, text='1- Instale o aplicativo Google Authenticator no seu telefone.', font = ('Berlin Sans FB', 14), fg = '#d52b1e', bg= 'white')
+    subtitle1_label.place(x= 150, y= 70)
+
+    subtitle1_labe2 = tk.Label(root,  width = 100, height = 1, text='2- Escaneie o código QR abaixo com o seu aplicativo.', font = ('Berlin Sans FB', 14), fg = '#d52b1e', bg= 'white')
+    subtitle1_labe2.place(x= 150, y= 120)
+
+    location_img = tk.PhotoImage(file='./View/imgs/totp.png')
+    location_img = location_img.subsample(2, 2)
+    qr_code_label = tk.Label(root, width= 200, height= 200, image=location_img)
+    qr_code_label.pack(pady= 100)
+    
+    subtitle1_labe3 = tk.Label(root,  width = 100, height = 1, text='3- Digite o código de 6 dígitos do Google Authenticator.', font = ('Berlin Sans FB', 14), fg = '#d52b1e', bg= 'white')
+    subtitle1_labe3.place(x= 150, y= 400)
+
+    code_entry = tk.Entry(root,  width= 40, font= ('Berlin Sans FB', 11), bg= '#e3e3e3', fg= '#9e9e9e')
+    code_entry.place(x= 470, y= 450)
+
+    button_sign_in = tk.Button(root, width = 20, height = 2, text='ENTRAR', font = ('Berlin Sans FB', 11), relief ='ridge', bg ='#d52b1e', fg ='White',  
+                               activeforeground = '#d52b1e', command= lambda: (admin.validate_entry(admin(entry= code_entry.get()), root=root),
+                                                                               code_entry.delete(0, tk.END)))
+                                                                               
+                                                                               
+    button_sign_in.place(x= 470, y= 500)
+
+    button_quit = tk.Button(root, width = 20, height = 2, text='SAIR', font = ('Berlin Sans FB', 11), relief ='ridge', bg ='#d52b1e', fg ='White',  
+                            activeforeground = '#d52b1e', command= lambda: (root.destroy(), record()))
+    button_quit.place(x= 664, y= 500)
+
     root.mainloop()
-
-def call_record(root):
-    root.destroy()
-    record()
-
-def call_sign_in(root):
-    root.destroy()
-    sign_in()
 
 
     
