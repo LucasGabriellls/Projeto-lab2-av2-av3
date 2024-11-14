@@ -1,9 +1,10 @@
 import tkinter as tk
-from Controller.adm import admin
 
 
 def record():
     from Controller.user import User
+
+    
     root = tk.Tk()
     root.title('Super Kernel')
     root.geometry('1300x800')
@@ -61,6 +62,7 @@ def record():
 def sign_in():
     from Controller.user import User
 
+
     root = tk.Tk()
     root.title('Super Kernel')
     root.geometry('1300x800')
@@ -109,6 +111,9 @@ def sign_in():
     root.mainloop()
 
 def adm_sign_in(): 
+    from Controller.adm import admin
+
+
     root = tk.Tk()
     root.title('Super Kernel')
     root.geometry('1300x800')
@@ -152,8 +157,4 @@ def adm_sign_in():
     button_quit.place(x= 664, y= 500)
 
     root.mainloop()
-
-
-    
-
-            
+           

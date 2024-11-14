@@ -2,7 +2,9 @@ from tkinter import messagebox
 import bcrypt
 
 from Model.market_db import DataBase
-from Controller.adm import admin, auth
+from Controller.adm import auth
+from View.home import adm_sign_in, sign_in
+
 
 
 class User:
@@ -12,8 +14,6 @@ class User:
         self.password = password
 
     def validate_record(self, root):
-        from View.home import sign_in
-
         void_box = User.validate_entry_record(self)
         if void_box == True:
             user = DataBase.record_list_user(self.email)
@@ -44,6 +44,9 @@ class User:
            messagebox.showerror('ERRO', 'Criptografia mal-sucedida!')
     
     def insert_new_user(self):
+        from Model.market_db import DataBase
+
+        
         try:
             name = self.name
             email = self.email
@@ -57,8 +60,6 @@ class User:
 
 
     def validate_sign_in(self, root):
-        from View.home import adm_sign_in
-
         adm_password = 'admin123mer'
 
         box_void = User.validate_entry_login(self)

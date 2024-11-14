@@ -1,7 +1,7 @@
 from View.home import record
 
-def main():
+def main1():
     record()
 
 if __name__ == '__main__':
-    main()
+    main1()

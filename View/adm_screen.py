@@ -1,9 +1,13 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from View.home import sign_in
+
+
 def admin_roles():
+
     root = tk.Tk()
-    root.title('Super kernel')
+    root.title('Super kernel - Página de Administrador')
     root.geometry('1300x800')
     root.resizable(False, False)
     root.config(bg= 'White')
@@ -65,8 +69,23 @@ def admin_roles():
                              activeforeground = '#d52b1e')
     func3_buy_button.place(x= -4, y= 560)
 
+    quit_button = tk.Button(frame_bar, width = 20, height = 2, text='Sair', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
+                             activeforeground = '#d52b1e', command= lambda: (root.destroy(), sign_in()))
+    quit_button.place(x= 45, y= 650)
+
 
     info_frame = tk.Frame(root, width= 800, height= 600, bg= '#d52b1e')
     info_frame.place(x= 400, y=80)
     info_frame.pack_propagate(False)
+    root.mainloop()
+
+def add_product():
+    root = tk.Tk()
+    root.title('Super Kernel - Adicionar Produtos')
+    root.geometry('1300x800')
+    root.resizable(False, False)
+    root.config(bg= 'White')
+    root.iconphoto(False, tk.PhotoImage(file = 'View/imgs/logo.png'))
+
+    
     root.mainloop()
