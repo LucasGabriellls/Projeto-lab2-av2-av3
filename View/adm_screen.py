@@ -77,6 +77,10 @@ def admin_roles():
     info_frame = tk.Frame(root, width= 800, height= 600, bg= '#d52b1e')
     info_frame.place(x= 400, y=80)
     info_frame.pack_propagate(False)
+
+    info_bar_frame = tk.Frame(info_frame, width= 800, height= 30, bg= '#f44141')
+    info_bar_frame.place
+
     root.mainloop()
 
 def add_product():

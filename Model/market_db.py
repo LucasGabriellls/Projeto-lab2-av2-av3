@@ -36,7 +36,7 @@ class DataBase:
             query = 'SELECT email_cliente FROM market_db.cliente WHERE email_cliente = %s;'
             cur.execute(query, [email])
             result_select = cur.fetchone()
-            return result_select  # Retorna None se não encontrar
+            return result_select  
         except Exception as e:
             print(f"Erro na consulta: {e}")
             return None
@@ -68,6 +68,20 @@ class DataBase:
             conn.commit() 
         except Exception as e:
             print(f'Erro ao inserir o usuario: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+
+    def select_total_orders():
+        conn = DataBase.create_connection()
+        try:
+            cur = conn.cursor()
+            cur.execute('select count(id_pedido) as total_pedidos from pedido;')
+            result_select = cur.fetchone()  
+            return result_select
+        except Exception as e:
+            print(f'Erro na verificação de login: {e}')
             return None
         finally:
             conn.close()

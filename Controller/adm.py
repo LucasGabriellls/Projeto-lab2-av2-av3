@@ -3,6 +3,7 @@ import pyotp
 import qrcode
 
 from View.adm_screen import admin_roles
+from Model.market_db import DataBase
 
 
 class admin:
@@ -21,7 +22,12 @@ class admin:
             messagebox.showerror('Erro', 'Nenhum código foi digitado!')
     
     def basic_information():
-        ...
+        result = DataBase.select_total_orders()
+
+        if result:
+            return result
+        else:
+            return 0
 
 def auth():
         global totp
