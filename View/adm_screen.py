@@ -5,6 +5,8 @@ from View.home import sign_in
 
 
 def admin_roles():
+    from Controller.adm import admin
+
 
     root = tk.Tk()
     root.title('Super kernel - Página de Administrador')
@@ -17,14 +19,16 @@ def admin_roles():
     frame_bar.grid(row= 0, column= 0)
     frame_bar.pack_propagate(False)
 
-    title_label = tk.Label(frame_bar,  width = 30, height = 2, text='MENU', font = ('Berlin Sans FB', 20, 'bold'), fg = 'White', bg= '#d52b1e')
-    title_label.pack(pady= 5)
+    location_img = tk.PhotoImage(file='./View/imgs/sem_bg.png')
+    location_img = location_img.subsample(4, 4)
+    logo_label = tk.Label(frame_bar, width= 200, height= 200, image=location_img, bg= '#d52b1e')
+    logo_label.place(x= 50, y= -30)
 
     func_product_label = tk.Label(frame_bar, width = 30, height = 1, text='Produtos:', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#f44141', anchor='w')
     func_product_label.place(x= 1, y= 110)
 
     func1_product_button = tk.Button(frame_bar, width = 30, height = 1, text='Adicionar Produtos', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
-                             activeforeground = '#d52b1e')
+                             activeforeground = '#d52b1e', command= lambda: (admin.add_product(self= None, root= root)))
     func1_product_button.place(x= -4, y= 140)
 
     func2_product_button = tk.Button(frame_bar, width = 30, height = 1, text='Remover Produto', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
@@ -73,23 +77,11 @@ def admin_roles():
                              activeforeground = '#d52b1e', command= lambda: (root.destroy(), sign_in()))
     quit_button.place(x= 45, y= 650)
 
+    title_label = tk.Label(root, width= 30, height= 2, text='Área do Administrador', font = ('Berlin Sans FB', 20, 'bold'), fg = '#d52b1e', bg= 'White')
+    title_label.place(x= 570, y= 10)
 
-    info_frame = tk.Frame(root, width= 800, height= 600, bg= '#d52b1e')
-    info_frame.place(x= 400, y=80)
-    info_frame.pack_propagate(False)
+    logo_location_img = tk.PhotoImage(file='./View/imgs/logo.png')
+    logo_img_label = tk.Label(root, width= 500, height= 500, image= logo_location_img, bg= 'white')
+    logo_img_label.place(x= 560, y= 150)
 
-    info_bar_frame = tk.Frame(info_frame, width= 800, height= 30, bg= '#f44141')
-    info_bar_frame.place
-
-    root.mainloop()
-
-def add_product():
-    root = tk.Tk()
-    root.title('Super Kernel - Adicionar Produtos')
-    root.geometry('1300x800')
-    root.resizable(False, False)
-    root.config(bg= 'White')
-    root.iconphoto(False, tk.PhotoImage(file = 'View/imgs/logo.png'))
-
-    
     root.mainloop()

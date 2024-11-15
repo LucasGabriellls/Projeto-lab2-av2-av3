@@ -3,7 +3,8 @@ import pyotp
 import qrcode
 
 from View.adm_screen import admin_roles
-from Model.market_db import DataBase
+#from Model.market_db import DataBase
+from View.adm_product_screen import add_product_screen
 
 
 class admin:
@@ -13,21 +14,20 @@ class admin:
 
     def validate_entry(self, root):
         if self.entry != "":
-            if totp.verify(str(self.entry)):
-                root.destroy()
-                admin_roles()
-            else:
-                messagebox.showerror('Erro', 'Código errado, tente novamente')
+            try:
+                if totp.verify((self.entry)):
+                    root.destroy()
+                    admin_roles()
+                else:
+                    messagebox.showerror('Erro', 'Código errado, tente novamente')
+            except Exception as e:
+                messagebox.showerror('Erro', f'ERRO: {e}')
         else:
             messagebox.showerror('Erro', 'Nenhum código foi digitado!')
     
-    def basic_information():
-        result = DataBase.select_total_orders()
-
-        if result:
-            return result
-        else:
-            return 0
+    def add_product(self, root):
+        root.destroy()
+        add_product_screen()
 
 def auth():
         global totp

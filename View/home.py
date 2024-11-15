@@ -101,8 +101,7 @@ def sign_in():
 
     button_sign_in = tk.Button(root, width = 20, height = 2, text='ENTRAR', font = ('Berlin Sans FB', 11), relief ='ridge', bg ='#d52b1e', fg ='White', 
                                 activeforeground = '#d52b1e', command= lambda: (
-                                    User.validate_sign_in(
-                                    User(email= entry_email.get(), password=entry_password.get()), root),
+                                    User.validate_sign_in(User(email= entry_email.get(), password=entry_password.get()), root=root),
                                     entry_email.delete(0, tk.END),
                                     entry_password.delete(0, tk.END)
                                     ))

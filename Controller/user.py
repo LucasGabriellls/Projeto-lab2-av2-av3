@@ -77,6 +77,7 @@ class User:
                         password_validate = User.validate_password(self, password)
                         if password_validate:
                             root.destroy()
+                            messagebox.showinfo('info', 'tudo certo')
                             #buy()
                         else:
                             messagebox.showinfo('Informação', 'Nenhum usuário encontrado!')
