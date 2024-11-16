@@ -1,7 +1,6 @@
 from tkinter import messagebox
 import bcrypt
 
-from Model.market_db import DataBase
 from Controller.adm import auth
 from View.home import adm_sign_in, sign_in
 
@@ -14,9 +13,12 @@ class User:
         self.password = password
 
     def validate_record(self, root):
+        from Model.user_db import DataBaseUser
+
+
         void_box = User.validate_entry_record(self)
         if void_box == True:
-            user = DataBase.record_list_user(self.email)
+            user = DataBaseUser.record_list_user(email=self.email)
             if user:
                 messagebox.showinfo('Informação', 'Já existe usuário com esse email')
             else:
@@ -44,15 +46,15 @@ class User:
            messagebox.showerror('ERRO', 'Criptografia mal-sucedida!')
     
     def insert_new_user(self):
-        from Model.market_db import DataBase
+        from Model.user_db import DataBaseUser
 
-        
+
         try:
             name = self.name
             email = self.email
             password = User.Encrypt_password(self)
 
-            DataBase.insert_user(name= name, email= email, password= password)
+            DataBaseUser.insert_user(name= name, email= email, password= password)
             messagebox.showinfo('Informação', 'Seu cadastro foi realizado com sucesso!')
 
         except Exception as e:
@@ -60,6 +62,9 @@ class User:
 
 
     def validate_sign_in(self, root):
+        from Model.user_db import DataBaseUser
+
+
         adm_password = 'admin123mer'
 
         box_void = User.validate_entry_login(self)
@@ -69,7 +74,7 @@ class User:
                 auth()
                 adm_sign_in()
             else:
-                result_select = DataBase.login_list_user(self.email)
+                result_select = DataBaseUser.login_list_user(self.email)
 
                 if result_select:
                     try:
