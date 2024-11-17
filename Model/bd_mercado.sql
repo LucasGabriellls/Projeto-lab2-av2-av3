@@ -36,5 +36,5 @@ create table produto(
 create table categoria(
 	id_categoria serial primary key,
 	nome_categoria varchar(250) not null,
-	descricao varchar(500) 
+	descricao varchar(5000) 
 );

@@ -5,7 +5,7 @@ from View.home import sign_in
 
 
 def admin_roles():
-    from Controller.adm import admin
+    from View.adm_product_screen import add_product_screen
 
 
     root = tk.Tk()
@@ -28,7 +28,7 @@ def admin_roles():
     func_product_label.place(x= 1, y= 110)
 
     func1_product_button = tk.Button(frame_bar, width = 30, height = 1, text='Adicionar Produtos', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
-                             activeforeground = '#d52b1e', command= lambda: (admin.add_product(self= None, root= root)))
+                             activeforeground = '#d52b1e', command= lambda: (root.destroy(), add_product_screen()))
     func1_product_button.place(x= -4, y= 140)
 
     func2_product_button = tk.Button(frame_bar, width = 30, height = 1, text='Remover Produto', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',

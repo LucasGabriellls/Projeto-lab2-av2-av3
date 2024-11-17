@@ -3,7 +3,6 @@ import pyotp
 import qrcode
 
 from View.adm_screen import admin_roles
-#from Model.market_db import DataBase
 from View.adm_product_screen import add_product_screen
 
 
@@ -25,9 +24,9 @@ class admin:
         else:
             messagebox.showerror('Erro', 'Nenhum código foi digitado!')
     
-    def add_product(self, root):
-        root.destroy()
-        add_product_screen()
+    def add_product(self, root, name_product, price, category, new_category, description= None, qnt_stock = None):
+        ...
+        
 
 def auth():
         global totp
