@@ -42,8 +42,9 @@ def add_product_screen():
     name_category = tk.Label(box_frame, width= 50, height= 2, text= '*Nome da Categoria:', font = ('Berlin Sans FB', 11, 'bold'), bg = '#d52b1e', fg = 'white')
     name_category.place(x= 400, y= 200)
 
+    categories = admin.categories()
     combobox = ttk.Combobox(box_frame, width= 30)
-    #combobox['values'] = categories
+    combobox['values'] = categories
     combobox.place(x= 555, y= 230)
 
     new_category = tk.Label(box_frame, width= 50, height= 2,  text= 'Nova Categoria:', font = ('Berlin Sans FB', 11, 'bold'), bg = '#d52b1e', fg = 'white')
@@ -59,10 +60,14 @@ def add_product_screen():
     description_entry.place(x= 50, y= 290)
 
     button_confirm = tk.Button(box_frame, width = 20, height = 2, text = 'Confirmar', font = ('Berlin Sans FB', 11), relief ='ridge', bg ='#d52b1e', fg ='White', 
-                                activeforeground = '#d52b1e', command= lambda: (admin.add_product(root= root, name_product= name_entry.get(), qnt_stock= qnt_stock_entry.get(),
+                                activeforeground = '#d52b1e', command= lambda: (admin.add_product(name_product= name_entry.get(), qnt_stock= qnt_stock_entry.get(),
                                                                                 price= price_entry.get(), category= combobox.get(), new_category= name_new_category.get(),
-                                                                                description= description_entry.get()),
-                                                                                ))
+                                                                                description= description_entry.get(), root= root),
+                                                                                name_entry.delete(0, tk.END),
+                                                                                qnt_stock_entry.delete(0, tk.END),
+                                                                                price_entry.delete(0, tk.END),
+                                                                                name_new_category.delete(0, tk.END),
+                                                                                description_entry.delete(0, tk.END)))
     button_confirm.place(x= 300, y= 420)
 
     button_quit = tk.Button(box_frame, width = 20, height = 2, text = 'Sair', font = ('Berlin Sans FB', 11), relief ='ridge', bg ='#d52b1e', fg ='White', 

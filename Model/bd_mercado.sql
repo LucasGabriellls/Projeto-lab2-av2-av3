@@ -30,11 +30,11 @@ create table produto(
 	nome_produto varchar(250) not null,
 	qnt_estoque smallint default 0,
 	preco decimal(10, 2) check(preco > 0) not null,
-	categoria_id int references categoria(id_categoria)
+	categoria_id int references categoria(id_categoria),
+	descricao varchar(5000) 
 );
 
 create table categoria(
 	id_categoria serial primary key,
 	nome_categoria varchar(250) not null,
-	descricao varchar(5000) 
 );

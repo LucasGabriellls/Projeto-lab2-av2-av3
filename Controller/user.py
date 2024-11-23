@@ -3,6 +3,7 @@ import bcrypt
 
 from Controller.adm import auth
 from View.home import adm_sign_in, sign_in
+from View.user_buy_screen import buy
 
 
 
@@ -75,15 +76,17 @@ class User:
                 adm_sign_in()
             else:
                 result_select = DataBaseUser.login_list_user(self.email)
+                email, password = result_select
 
                 if result_select:
                     try:
-                        email, password = result_select
                         password_validate = User.validate_password(self, password)
                         if password_validate:
                             root.destroy()
-                            messagebox.showinfo('info', 'tudo certo')
-                            #buy()
+                            try:
+                                buy()
+                            except Exception as e:
+                                messagebox.showerror('ERRO', 'Erro ao entra na tela de compra.')
                         else:
                             messagebox.showinfo('Informação', 'Nenhum usuário encontrado!')
 
@@ -103,12 +106,8 @@ class User:
 
     def validate_password(self, password_hash):
             try:
-                print(self.password)
                 password_bytes = self.password.encode('utf-8') 
-                print(type(self.password))
                 password_hash = password_hash.tobytes() 
-                print(password_hash)
-                print(password_bytes)
                 return bcrypt.checkpw(password_bytes, password_hash)
             
             except Exception as e:

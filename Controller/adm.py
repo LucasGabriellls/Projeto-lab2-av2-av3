@@ -3,8 +3,7 @@ import pyotp
 import qrcode
 
 from View.adm_screen import admin_roles
-from View.adm_product_screen import add_product_screen
-
+from Model.product_db import DataBaseProduct
 
 class admin:
     def __init__(self, secret_key= None,  entry= None):
@@ -20,14 +19,95 @@ class admin:
                 else:
                     messagebox.showerror('Erro', 'Código errado, tente novamente')
             except Exception as e:
-                messagebox.showerror('Erro', f'ERRO: {e}')
+                messagebox.showerror('Erro', f'ERRO autenticação: {e}')
         else:
             messagebox.showerror('Erro', 'Nenhum código foi digitado!')
     
-    def add_product(self, root, name_product, price, category, new_category, description= None, qnt_stock = None):
-        ...
-        
+    @staticmethod
+    def add_product(root, name_product, price, category, new_category, description= None, qnt_stock = None):
+        if category:
+            if name_product and price:
+                try:
+                    if qnt_stock == None:
+                        result_stock = 0
+                    else:
+                        result_stock = admin.check_stock(stock_c= int(qnt_stock))
+                    result_price = admin.check_price(price_c= float(price))
+                    category_id = admin.select_id_category(search_category_id= category)
+                    DataBaseProduct.add_product(name= name_product, stock= result_stock, price_p= price, category_id_p= category_id, description_c= description)
+                    root.destroy()
+                    admin_roles()
+                except Exception as e:
+                    messagebox.showerror('ERRO', 'Erro: Tentativa de adicionar novo produto, falha.')
+            else:
+                 messagebox.showerror('ERRO','Digite o Nome e o Preço do produto.')
+        elif new_category:
+            if name_product and price:
+                try:
+                    
+                    if qnt_stock == None:
+                        result_stock = 0
+                    else:
+                        result_stock = admin.check_stock(stock_c= int(qnt_stock))
+                    result_price = admin.check_price(price_c= float(price))
+                    result_search = admin.find_equal_category(search_category= new_category)
 
+                    if result_search:
+                        messagebox.showinfo('INFORMAÇÃO', 'Já possui uma categoria com esse nome')
+                    else:
+                        DataBaseProduct.add_category(category_c= new_category)
+                        category_id = admin.select_id_category(new_category)
+                        DataBaseProduct.add_product(name= name_product, stock= result_stock, price_p= result_price, category_id_p= category_id, description_c= description)
+                        root.destroy()
+                        admin_roles()
+                except Exception as e:
+                    messagebox.showerror('ERRO', f'ERRO categoria: {e}')
+            else:
+                messagebox.showerror('ERRO', 'Erro: Tentativa de adicionar novo produto, falha.')
+        else:
+             messagebox.showerror('Erro', 'Nenhuma categoria selecionada/criada.')
+
+    @staticmethod
+    def categories():
+        result = DataBaseProduct.select_category()
+        print(result)
+        if result:
+            return result
+        else:
+            return ''
+    
+    @staticmethod
+    def select_id_category(search_category_id):
+        try:
+            return DataBaseProduct.search_id_category(category= search_category_id)
+        except Exception as e:
+            messagebox.showerror('ERRO', 'Erro ao procurar o id_categoria')
+
+    @staticmethod
+    def find_equal_category(search_category):
+        result_select = DataBaseProduct.equal_category(name_category= search_category)
+
+        if result_select:
+            return True
+        else:
+            return False
+    
+    @staticmethod
+    def check_stock(stock_c):
+        value = stock_c
+        if value >= 0:
+            return value
+        else:
+            value = 0
+            return value
+    
+    @staticmethod
+    def check_price(price_c):
+        if price_c >= 0:
+            return price_c
+        else:
+            price_c = 0.0
+            return price_c  
 def auth():
         global totp
         key = pyotp.random_base32()
