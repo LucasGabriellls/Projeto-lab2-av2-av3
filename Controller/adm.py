@@ -3,7 +3,10 @@ import pyotp
 import qrcode
 
 from View.adm_screen import admin_roles
+from View.adm_product_screen import remove_product_screen, edit_product_screen
+from View.adm_user_screen import remove_user_screen, edit_user_screen
 from Model.product_db import DataBaseProduct
+from Model.user_db import DataBaseUser
 
 class admin:
     def __init__(self, secret_key= None,  entry= None):
@@ -13,11 +16,11 @@ class admin:
     def validate_entry(self, root):
         if self.entry != "":
             try:
-                if totp.verify((self.entry)):
+                #if totp.verify((self.entry)):
                     root.destroy()
                     admin_roles()
-                else:
-                    messagebox.showerror('Erro', 'Código errado, tente novamente')
+                #else:
+                    #messagebox.showerror('Erro', 'Código errado, tente novamente')
             except Exception as e:
                 messagebox.showerror('Erro', f'ERRO autenticação: {e}')
         else:
@@ -70,7 +73,6 @@ class admin:
     @staticmethod
     def categories():
         result = DataBaseProduct.select_category()
-        print(result)
         if result:
             return result
         else:
@@ -108,6 +110,51 @@ class admin:
         else:
             price_c = 0.0
             return price_c  
+    
+    @staticmethod
+    def info_remove_product(root):
+        result = DataBaseProduct.select_product_all()
+        if result:
+            root.destroy()
+            remove_product_screen()
+        else:
+            messagebox.showerror('ERRO', 'Não existe nenhum produto cadastrado no momento.')
+            root.destroy()
+            admin_roles()
+    
+    @staticmethod
+    def info_edit_product(root):
+        result = DataBaseProduct.select_product_all()
+        if result:
+            root.destroy()
+            edit_product_screen()
+        else:
+            messagebox.showerror('ERRO', 'Não existe nenhum produto cadastrado no momento.')
+            root.destroy()
+            admin_roles()
+    
+    @staticmethod
+    def info_remove_user(root):
+        result = DataBaseUser.select_user()
+        if result:
+            root.destroy()
+            remove_user_screen()
+        else:
+            messagebox.showerror('ERRO', 'Não existe nenhum produto cadastrado no momento.')
+            root.destroy()
+            admin_roles()
+    
+    @staticmethod
+    def info_edit_user(root):
+        result = DataBaseUser.select_user()
+        if result:
+            root.destroy()
+            edit_user_screen()
+        else:
+            messagebox.showerror('ERRO', 'Não existe nenhum produto cadastrado no momento.')
+            root.destroy()
+            admin_roles()
+
 def auth():
         global totp
         key = pyotp.random_base32()

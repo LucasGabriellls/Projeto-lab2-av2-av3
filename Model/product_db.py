@@ -74,13 +74,42 @@ class DataBaseProduct:
         finally:
             conn.close()
             cur.close()
-    '''
-    def search_product(name_product):
+
+    
+    def search_product():
         conn = create_connection()
         try:
             cur = conn.cursor()
-            query = 'select nome_produto from market_db.categoria WHERE nome_categoria ilike %s;'
-            cur.execute(query, [name_product,])  
+            cur.execute('select nome_produto from market_db.produto;')  
+            result_select = cur.fetchall()  
+            return result_select
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro na procura do produto.')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+    
+    def select_product_all():
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            cur.execute('select * from market_db.produto;')  
+            result_select = cur.fetchall()  
+            return result_select
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro na procura do produto.')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+    
+    def id_product_search(id_product):
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            query = 'select id_produto from market_db.produto WHERE id_produto = %s;'
+            cur.execute(query, [id_product,])  
             result_select = cur.fetchone()  
             return result_select
         except Exception as e:
@@ -89,4 +118,37 @@ class DataBaseProduct:
         finally:
             conn.close()
             cur.close()
+
+    def remove_product(id_product):
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            query = 'delete from market_db.produto where id_produto = %s;'
+            cur.execute(query, [id_product,])  
+            conn.commit()
+            return True
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro ao excluir produto: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+    
+    def edit_product(id_product, name_product, stock_product, price_product, description_product):
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            query = '''
+            UPDATE market_db.produto
+            SET nome_produto = %s, qnt_estoque = %s, preco = %s, descricao = %s
+            WHERE id_produto = %s;
             '''
+            cur.execute(query, [name_product, stock_product, price_product, description_product, id_product])  
+            conn.commit()
+            return True
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro ao excluir produto: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()

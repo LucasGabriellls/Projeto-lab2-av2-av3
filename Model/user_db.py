@@ -22,7 +22,7 @@ class DataBaseUser:
         conn = create_connection()
         try:
             cur = conn.cursor()
-            query = 'select email_cliente, senha from market_db.cliente WHERE email_cliente = %s;'
+            query = 'select senha from market_db.cliente WHERE email_cliente = %s;'
             cur.execute(query, [email])  
             result_select = cur.fetchone()  
             return result_select
@@ -41,7 +41,21 @@ class DataBaseUser:
             cur.execute(query, [name, email, password,])  
             conn.commit() 
         except Exception as e:
-            messagebox.showerror('ERRO', f'Erro ao inserir o usuario: {e}')
+            messagebox.showerror('ERRO', f'Erro ao inserir o usuario.')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+    
+    def select_user():
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            cur.execute('select id_cliente from market_db.cliente;')  
+            result_select = cur.fetchall()  
+            return result_select
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro ao selecionar os usuários.')
             return None
         finally:
             conn.close()
