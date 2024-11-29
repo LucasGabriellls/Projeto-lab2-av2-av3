@@ -8,6 +8,7 @@ def admin_roles():
     from View.adm_product_screen import add_product_screen, list_product
     from Controller.adm import admin
     from Controller.adm_product import AdminProduct
+    from Controller.adm_user import AdminUser
 
 
     root = tk.Tk()
@@ -53,7 +54,7 @@ def admin_roles():
     func1_user_button.place(x= -4, y= 330)
 
     func2_user_button = tk.Button(frame_barr, width = 30, height = 1, text='Listar Usuários', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
-                             activeforeground = '#d52b1e')
+                             activeforeground = '#d52b1e', command= lambda: (AdminUser.list_user(root= root)))
     func2_user_button.place(x= -4, y= 370)
 
     func3_user_button = tk.Button(frame_barr, width = 30, height = 1, text='Editar Usuário', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',

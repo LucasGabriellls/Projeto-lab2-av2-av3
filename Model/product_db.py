@@ -76,11 +76,11 @@ class DataBaseProduct:
             cur.close()
 
     
-    def search_product():
+    def select_product_all():
         conn = create_connection()
         try:
             cur = conn.cursor()
-            cur.execute('select nome_produto from market_db.produto;')  
+            cur.execute('select * from market_db.produto;')  
             result_select = cur.fetchall()  
             return result_select
         except Exception as e:
@@ -89,12 +89,12 @@ class DataBaseProduct:
         finally:
             conn.close()
             cur.close()
-    
-    def select_product_all():
+
+    def select_product_buy():
         conn = create_connection()
         try:
             cur = conn.cursor()
-            cur.execute('select * from market_db.produto;')  
+            cur.execute('select * from market_db.produto where qnt_estoque > 0;')  
             result_select = cur.fetchall()  
             return result_select
         except Exception as e:
@@ -152,3 +152,60 @@ class DataBaseProduct:
         finally:
             conn.close()
             cur.close()
+
+    def rising_price():
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM market_db.produto ORDER BY preco ASC;')  
+            result_select = cur.fetchall()  
+            return result_select
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro procura do id_categoria: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+
+    def decreasing_price():
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM market_db.produto ORDER BY preco DESC;')  
+            result_select = cur.fetchall()  
+            return result_select
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro procura do id_categoria: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+
+    def alphabetical_order():
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM market_db.produto ORDER BY nome_produto ASC;')  
+            result_select = cur.fetchall()  
+            return result_select
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro procura do id_categoria: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+    
+    def list_name(name):
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            query = f"SELECT * FROM market_db.produto WHERE nome_produto LIKE '%{name}%'"
+            cur.execute(query)  
+            result_select = cur.fetchall()  
+            return result_select
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro procura do id_categoria: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()    

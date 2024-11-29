@@ -202,7 +202,6 @@ def edit_product_screen():
 
 def list_product(result):
     from View.adm_screen import admin_roles
-    from Controller.adm_product import AdminProduct
 
 
     root = tk.Tk()
@@ -242,16 +241,16 @@ def list_product(result):
     tv.tag_configure('odd', background='#f4f4f4')  
     tv.tag_configure('even', background='#ffffff')  
 
-    scrollbar = tk.Scrollbar(box_frame, orient="vertical", command=tv.yview)
+    scrollbar = tk.Scrollbar(box_frame, orient='vertical', command=tv.yview)
     tv.configure(yscrollcommand=scrollbar.set)
 
-    tv.pack(side="left", fill='both', expand=True)
-    scrollbar.pack(side="right", fill="y")
+    tv.pack(side='left', fill='both', expand=True)
+    scrollbar.pack(side='right', fill='y')
 
-    for idx, (id_produto, nome_produto, qnt_estoque, preco, categoria_id, descricao) in enumerate(result):
+    for idx, (id_product, name_product, qnt_stock, price, category_id, description) in enumerate(result):
         tag = 'odd' if idx % 2 == 0 else 'even'
         
-        item_id = tv.insert('', 'end', values=(id_produto, nome_produto, qnt_estoque, preco, categoria_id))
+        item_id = tv.insert('', 'end', values=(id_product, name_product, qnt_stock, price, category_id))
         tv.item(item_id, tags=(tag,))
 
     button_quit = tk.Button(frame_barr, width = 10, height = 1, text='Sair', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',

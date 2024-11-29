@@ -28,47 +28,50 @@ class admin:
     
     @staticmethod
     def add_product(root, name_product, price, category, new_category, description= None, qnt_stock = None):
-        if category:
-            if name_product and price:
-                try:
-                    if qnt_stock == None:
-                        result_stock = 0
-                    else:
-                        result_stock = admin.check_stock(stock_c= int(qnt_stock))
-                    result_price = admin.check_price(price_c= float(price))
-                    category_id = admin.select_id_category(search_category_id= category)
-                    DataBaseProduct.add_product(name= name_product, stock= result_stock, price_p= price, category_id_p= category_id, description_c= description)
-                    root.destroy()
-                    admin_roles()
-                except Exception as e:
-                    messagebox.showerror('ERRO', 'Erro: Tentativa de adicionar novo produto, falha.')
-            else:
-                 messagebox.showerror('ERRO','Digite o Nome e o Preço do produto.')
-        elif new_category:
-            if name_product and price:
-                try:
-                    
-                    if qnt_stock == None:
-                        result_stock = 0
-                    else:
-                        result_stock = admin.check_stock(stock_c= int(qnt_stock))
-                    result_price = admin.check_price(price_c= float(price))
-                    result_search = admin.find_equal_category(search_category= new_category)
-
-                    if result_search:
-                        messagebox.showinfo('INFORMAÇÃO', 'Já possui uma categoria com esse nome')
-                    else:
-                        DataBaseProduct.add_category(category_c= new_category)
-                        category_id = admin.select_id_category(new_category)
-                        DataBaseProduct.add_product(name= name_product, stock= result_stock, price_p= result_price, category_id_p= category_id, description_c= description)
+        if name_product and price and (category or new_category) and description and qnt_stock:
+            if category:
+                if name_product and price:
+                    try:
+                        if qnt_stock == None:
+                            result_stock = 0
+                        else:
+                            result_stock = admin.check_stock(stock_c= int(qnt_stock))
+                        result_price = admin.check_price(price_c= float(price))
+                        category_id = admin.select_id_category(search_category_id= category)
+                        DataBaseProduct.add_product(name= name_product, stock= result_stock, price_p= price, category_id_p= category_id, description_c= description)
                         root.destroy()
                         admin_roles()
-                except Exception as e:
-                    messagebox.showerror('ERRO', f'ERRO categoria: {e}')
+                    except Exception as e:
+                        messagebox.showerror('ERRO', 'Erro: Tentativa de adicionar novo produto, falha.')
+                else:
+                    messagebox.showerror('ERRO','Digite o Nome e o Preço do produto.')
+            elif new_category:
+                if name_product and price:
+                    try:
+                        
+                        if qnt_stock == None:
+                            result_stock = 0
+                        else:
+                            result_stock = admin.check_stock(stock_c= int(qnt_stock))
+                        result_price = admin.check_price(price_c= float(price))
+                        result_search = admin.find_equal_category(search_category= new_category)
+
+                        if result_search:
+                            messagebox.showinfo('INFORMAÇÃO', 'Já possui uma categoria com esse nome')
+                        else:
+                            DataBaseProduct.add_category(category_c= new_category)
+                            category_id = admin.select_id_category(new_category)
+                            DataBaseProduct.add_product(name= name_product, stock= result_stock, price_p= result_price, category_id_p= category_id, description_c= description)
+                            root.destroy()
+                            admin_roles()
+                    except Exception as e:
+                        messagebox.showerror('ERRO', f'ERRO categoria: {e}')
+                else:
+                    messagebox.showerror('ERRO', 'Erro: Tentativa de adicionar novo produto, falha.')
             else:
-                messagebox.showerror('ERRO', 'Erro: Tentativa de adicionar novo produto, falha.')
+                messagebox.showerror('Erro', 'Nenhuma categoria selecionada/criada.')
         else:
-             messagebox.showerror('Erro', 'Nenhuma categoria selecionada/criada.')
+            messagebox.showerror('Erro', 'Digite todas as informações pedidas')
 
     @staticmethod
     def categories():

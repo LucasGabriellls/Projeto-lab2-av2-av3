@@ -81,6 +81,7 @@ class User:
                         password_validate = User.validate_password(self, password)
                         if password_validate:
                             root.destroy()
+                            Buy.new_order(self.email)
                             Buy.check_product()
                         else:
                             messagebox.showinfo('Informação', 'Nenhum usuário encontrado!')

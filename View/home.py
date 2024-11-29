@@ -61,6 +61,7 @@ def record():
 
 def sign_in():
     from Controller.user import User
+    from Controller.user_buy import Buy
 
 
     root = tk.Tk()
@@ -103,8 +104,7 @@ def sign_in():
                                 activeforeground = '#d52b1e', command= lambda: (
                                     User.validate_sign_in(User(email= entry_email.get(), password=entry_password.get()), root=root),
                                     entry_email.delete(0, tk.END),
-                                    entry_password.delete(0, tk.END)
-                                    ))
+                                    entry_password.delete(0, tk.END)))
     button_sign_in.place(x= 310, y= 550)
 
     root.mainloop()
