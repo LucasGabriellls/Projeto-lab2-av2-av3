@@ -2,8 +2,6 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-from View.home import sign_in
-
 def buy(product):
     from Controller.user_buy import Buy
 
@@ -102,6 +100,9 @@ def buy(product):
     root.mainloop()    
 
 def cart_screen(orders):
+    from Controller.user_buy import Buy
+
+
     root = tk.Tk()
     root.title('Super Kernel - Compra')
     root.geometry('1300x800')
@@ -118,9 +119,9 @@ def cart_screen(orders):
     logo_label = tk.Label(frame_barr, width= 200, height= 200, image=location_img, bg= '#d52b1e')
     logo_label.place(x= 550, y= -40)
 
-    box_frame = tk.Frame(root, width=1300, height=300, bg='white')
+    box_frame = tk.Frame(root, width=1300, height=600, bg='white')
     box_frame.pack(fill='both', expand=True)  
-
+    
     tv = ttk.Treeview(box_frame, columns=('name_product', 'amount'), show='headings')
     tv.column('name_product', minwidth=0, width=100)
     tv.column('amount', minwidth=0, width=250)
@@ -143,5 +144,8 @@ def cart_screen(orders):
         item_id = tv.insert('', 'end', values=(name_product, amount))
         tv.item(item_id, tags=(tag,))
 
-        root.mainloop()
+    button_quit = tk.Button(frame_barr, width = 10, height = 1, text='SAIR', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
+                             activeforeground = '#d52b1e', command= lambda: (Buy.quit_buy(root)))
+    button_quit.place(x= 20, y= 30)
+    root.mainloop()
     

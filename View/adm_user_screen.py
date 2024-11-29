@@ -55,6 +55,7 @@ def remove_user_screen():
     root.mainloop()
 
 def edit_user_screen():
+    from Controller.adm_user import AdminUser
     from View.adm_screen import admin_roles
 
 
@@ -111,15 +112,13 @@ def edit_user_screen():
     email_user_entry = tk.Entry(box_frame, width= 50, font= ('Berlin Sans FB', 14), bg = '#e3e3e3', fg = '#9e9e9e')  
     email_user_entry.place(x= 310, y= 300)  
 
-    phone_user_label = tk.Label(box_frame, width= 15, height= 1, text='Telefone:', font = ('Berlin Sans FB', 14), fg = 'white', bg= '#d52b1e') 
-    phone_user_label.place(x=185, y=350)
-
-    phone_user_entry = tk.Entry(box_frame, width= 50, font= ('Berlin Sans FB', 14), bg = '#e3e3e3', fg = '#9e9e9e')  
-    phone_user_entry.place(x= 310, y= 350) 
-
-    button_remove = tk.Button(box_frame, width = 20, height = 2, text='Editar', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
-                             activeforeground = '#d52b1e')
-    button_remove.place(x= 300, y= 500)
+    button_edit = tk.Button(box_frame, width = 20, height = 2, text='Editar', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
+                             activeforeground = '#d52b1e', command= lambda: (AdminUser.edit_user(root= root, id= id_user_entry.get(), name= name_user_entry.get(),
+                                                                            address= address_user_entry.get(), nation= nation_user_entry.get(), email= email_user_entry.get()),
+                                                                            id_user_entry.delete(0, tk.END), name_user_entry.delete(0, tk.END),
+                                                                            address_user_entry.delete(0, tk.END), nation_user_entry.delete(0, tk.END),
+                                                                            email_user_entry.delete(0, tk.END)))
+    button_edit.place(x= 300, y= 500)
 
     button_quit = tk.Button(box_frame, width = 20, height = 2, text='Sair', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
                              activeforeground = '#d52b1e', command= lambda: (root.destroy(), admin_roles()))

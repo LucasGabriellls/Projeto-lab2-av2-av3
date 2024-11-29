@@ -118,3 +118,22 @@ class DataBaseUser:
         finally:
             conn.close()
             cur.close()
+
+    def  edit_user(name, address, nation, email, id):
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            query = '''
+            UPDATE market_db.cliente
+            SET nome_cliente = %s, endereco = %s, pais = %s, email_cliente = %s
+            WHERE id_cliente = %s;
+            '''
+            cur.execute(query, [name, address, nation, email, id])  
+            conn.commit()
+            return True
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro ao excluir produto: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()
