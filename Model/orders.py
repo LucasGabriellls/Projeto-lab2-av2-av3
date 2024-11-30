@@ -97,3 +97,22 @@ class DataBaseOrder:
         finally:
             conn.close()
             cur.close()
+    
+    @staticmethod
+    def select_id_user(id):
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            query = 'select cliente_id from market_db.pedido WHERE id_pedido = %s;'
+            cur.execute(query, [id])  
+            result_select = cur.fetchone()  
+            return result_select
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro ao listar: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+
+    #@staticmethod
+    #def order_payment(payment_method, address, nation, cep, phone, cpf):

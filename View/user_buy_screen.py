@@ -147,5 +147,81 @@ def cart_screen(orders):
     button_quit = tk.Button(frame_barr, width = 10, height = 1, text='SAIR', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
                              activeforeground = '#d52b1e', command= lambda: (Buy.quit_buy(root)))
     button_quit.place(x= 20, y= 30)
+
+    button_payment = tk.Button(frame_barr, width = 10, height = 1, text='PAGAR', font = ('Berlin Sans FB', 14), fg = 'White', bg= '#d52b1e', relief='ridge',
+                             activeforeground = '#d52b1e', command= lambda: (root.destroy(), payment_screen()))
+    button_payment.place(x= 1150, y= 30)
+
     root.mainloop()
     
+def payment_screen():
+    from Controller.user_buy import Buy
+
+
+    root = tk.Tk()
+    root.title('Super Kernel - Compra')
+    root.geometry('1300x800')
+    root.resizable(False, False)
+    root.config(bg= 'White')
+    root.iconphoto(False, tk.PhotoImage(file = 'View/imgs/logo.png'))
+
+    frame_barr = tk.Frame(root, width= 1300, height= 100, bg= '#d52b1e')
+    frame_barr.pack()
+    frame_barr.pack_propagate(False)
+
+    location_img = tk.PhotoImage(file='./View/imgs/sem_bg.png')
+    location_img = location_img.subsample(4, 4)
+    logo_label = tk.Label(frame_barr, width= 200, height= 200, image=location_img, bg= '#d52b1e')
+    logo_label.place(x= 550, y= -40)
+
+    title = tk.Label(root, width= 15, height= 1, text= 'Pagamento',font = ('Berlin Sans FB', 16, 'bold'), fg = '#d52b1e', bg= 'white')
+    title.place(x= 550, y= 110)
+
+    box_frame = tk.Frame(root, width=1200, height=600, bg= '#d52b1e')
+    box_frame.place(x= 50, y= 150)
+
+    payment_method_label = tk.Label(box_frame, width= 20, height= 1, text= 'Forma de Pagamento: ', font = ('Berlin Sans FB', 14), fg = 'white', bg= '#d52b1e')
+    payment_method_label.place(x= 250, y= 70)
+
+    payment_method = tk.Entry(box_frame, width= 30, font= ('Berlin Sans FB', 14), bg = '#e3e3e3', fg = '#9e9e9e')
+    payment_method.place(x= 450, y= 70)
+
+    address_label = tk.Label(box_frame, width= 20, height= 1, text= 'Endereço: ', font = ('Berlin Sans FB', 14), fg = 'white', bg= '#d52b1e')
+    address_label.place(x= 302, y= 100)
+
+    address_entry = tk.Entry(box_frame, width= 30, font= ('Berlin Sans FB', 14), bg = '#e3e3e3', fg = '#9e9e9e')
+    address_entry.place(x= 450, y= 100)
+
+    nation_label = tk.Label(box_frame, width= 20, height= 1, text= 'País: ', font = ('Berlin Sans FB', 14), fg = 'white', bg= '#d52b1e')
+    nation_label.place(x= 320, y= 130)
+
+    nation_entry = tk.Entry(box_frame, width= 30, font= ('Berlin Sans FB', 14), bg = '#e3e3e3', fg = '#9e9e9e')
+    nation_entry.place(x= 450, y= 130)
+
+    cep_label = tk.Label(box_frame, width= 20, height= 1, text= 'CEP: ', font = ('Berlin Sans FB', 14), fg = 'white', bg= '#d52b1e')
+    cep_label.place(x= 320, y= 160)
+
+    cep_entry = tk.Entry(box_frame, width= 30, font= ('Berlin Sans FB', 14), bg = '#e3e3e3', fg = '#9e9e9e')
+    cep_entry.place(x= 450, y= 160)
+
+    phone_label = tk.Label(box_frame, width= 20, height= 1, text= 'Telefone: ', font = ('Berlin Sans FB', 14), fg = 'white', bg= '#d52b1e')
+    phone_label.place(x= 302, y= 190)
+
+    phone_entry = tk.Entry(box_frame, width= 30, font= ('Berlin Sans FB', 14), bg = '#e3e3e3', fg = '#9e9e9e')
+    phone_entry.place(x= 450, y= 190)
+
+    cpf_label = tk.Label(box_frame, width= 20, height= 1, text= 'CPF: ', font = ('Berlin Sans FB', 14), fg = 'white', bg= '#d52b1e')
+    cpf_label.place(x= 318, y= 220)
+
+    cpf_entry = tk.Entry(box_frame, width= 30, font= ('Berlin Sans FB', 14), bg = '#e3e3e3', fg = '#9e9e9e')
+    cpf_entry.place(x= 450, y= 220)
+
+    quit_button = tk.Button(box_frame, width = 15, height = 2, text='SAIR', font = ('Berlin Sans FB', 14, 'bold'), fg = 'White', bg= '#d52b1e', relief='ridge',
+                             activeforeground = '#d52b1e', command= lambda: (Buy.quit_buy(root)))
+    quit_button.place(x= 350, y= 400)
+
+    confirm_buy = tk.Button(box_frame, width = 15, height = 2, text='PAGAR', font = ('Berlin Sans FB', 14, 'bold'), fg = 'White', bg= '#d52b1e', relief='ridge',
+                             activeforeground = '#d52b1e')
+    confirm_buy.place(x= 650, y= 400)
+
+    root.mainloop()

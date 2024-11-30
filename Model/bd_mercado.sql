@@ -14,7 +14,8 @@ create table pedido(
 	id_pedido serial primary key,
 	cliente_id int references cliente(id_cliente),
 	data_pedido date,
-	status varchar(50) NOT NULL
+	status varchar(50) NOT NULL,
+	metodo_pagamento varchar(150)
 );
 
 
@@ -22,8 +23,7 @@ create table detalhe_pedido(
 	id_detalhe_pedido serial primary key,
 	quantidade smallint not null,
 	produto_id int references produto(id_produto),
-	pedido_id int references pedido(id_pedido),
-	metodo_pagamento varchar(150)
+	pedido_id int references pedido(id_pedido)
 );
 
 create table produto(

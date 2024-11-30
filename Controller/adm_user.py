@@ -30,7 +30,6 @@ class AdminUser:
         get_user = DataBaseUser.get_user()
         if get_user:
             root.destroy()
-            print(get_user)
             list_user(get_user)
         else:
             messagebox.showinfo('Informação', 'Ainda não possui usuários cadastrados.')

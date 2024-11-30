@@ -86,3 +86,11 @@ class Buy:
         DataBaseOrder.quit(id_order= id_order)
         root.destroy()
         sign_in()
+
+    @staticmethod   
+    def payment(root, payment_method, address, nation, cep, phone, cpf):
+        if payment_method and address and nation and cep and phone and cpf:
+            id_user = DataBaseOrder.select_id_user(id_order)
+            
+        else:
+            messagebox.showerror('ERRO', 'Digite todas as informações pedidas.')
