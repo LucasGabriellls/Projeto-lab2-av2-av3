@@ -22,13 +22,14 @@ class DataBaseOrder:
             cur.close()
 
     @staticmethod
-    def order(amount, id_product, id_order, payment):
+    def order(amount, id_product, id_order):
         conn = create_connection()
         try:
             cur = conn.cursor()
-            query = 'insert into market_db.detalhe_pedido (quantidade, produto_id, pedido_id, metodo_pagamento) values (%s, %s, %s, %s);'
-            cur.execute(query, [amount, id_product, id_order, payment,])  
+            query = 'insert into market_db.detalhe_pedido (quantidade, produto_id, pedido_id) values (%s, %s, %s) RETURNING quantidade;'
+            cur.execute(query, [amount, id_product, id_order,])  
             conn.commit()
+            return cur.fetchone()
         except Exception as e:
             messagebox.showerror('ERRO', f'Erro ao inserir o detalhe pedido: {e}')
             return None
@@ -114,5 +115,39 @@ class DataBaseOrder:
             conn.close()
             cur.close()
 
-    #@staticmethod
-    #def order_payment(payment_method, address, nation, cep, phone, cpf):
+    @staticmethod
+    def order_payment(id, payment_method, status):
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            query = '''UPDATE market_db.pedido
+                    SET status = %s, 
+                        metodo_pagamento = %s
+                    WHERE id_pedido = %s
+                    '''
+            cur.execute(query, [status, payment_method, id])  
+            conn.commit()
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro ao fazer update em pedido: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()
+
+    @staticmethod
+    def delete_stock_db(id_prod, qndt):
+        conn = create_connection()
+        try:
+            cur = conn.cursor()
+            query = '''UPDATE market_db.produto
+                        SET qnt_estoque = qnt_estoque - %s
+                        WHERE id_produto = %s
+                    '''
+            cur.execute(query, [qndt, id_prod])  
+            conn.commit()
+        except Exception as e:
+            messagebox.showerror('ERRO', f'Erro remover estoque: {e}')
+            return None
+        finally:
+            conn.close()
+            cur.close()

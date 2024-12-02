@@ -143,7 +143,7 @@ class DataBaseUser:
         try:
             cur = conn.cursor()
             query = """
-                    UPDATE cliente
+                    UPDATE market_db.cliente
                     SET
                         endereco = %s,
                         pais = %s,

@@ -161,7 +161,7 @@ class DataBaseProduct:
             result_select = cur.fetchall()  
             return result_select
         except Exception as e:
-            messagebox.showerror('ERRO', f'Erro procura do id_categoria: {e}')
+            messagebox.showerror('ERRO', f'Erro ao listar pelo preço crescente: {e}')
             return None
         finally:
             conn.close()
@@ -175,7 +175,7 @@ class DataBaseProduct:
             result_select = cur.fetchall()  
             return result_select
         except Exception as e:
-            messagebox.showerror('ERRO', f'Erro procura do id_categoria: {e}')
+            messagebox.showerror('ERRO', f'Erro ao listar ordem decrescente: {e}')
             return None
         finally:
             conn.close()
@@ -189,7 +189,7 @@ class DataBaseProduct:
             result_select = cur.fetchall()  
             return result_select
         except Exception as e:
-            messagebox.showerror('ERRO', f'Erro procura do id_categoria: {e}')
+            messagebox.showerror('ERRO', f'Erro ao listar em ordem crescente: {e}')
             return None
         finally:
             conn.close()
@@ -204,7 +204,7 @@ class DataBaseProduct:
             result_select = cur.fetchall()  
             return result_select
         except Exception as e:
-            messagebox.showerror('ERRO', f'Erro procura do id_categoria: {e}')
+            messagebox.showerror('ERRO', f'Erro procura pelo nome: {e}')
             return None
         finally:
             conn.close()

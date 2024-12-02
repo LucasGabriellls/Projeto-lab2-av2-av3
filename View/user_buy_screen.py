@@ -221,7 +221,15 @@ def payment_screen():
     quit_button.place(x= 350, y= 400)
 
     confirm_buy = tk.Button(box_frame, width = 15, height = 2, text='PAGAR', font = ('Berlin Sans FB', 14, 'bold'), fg = 'White', bg= '#d52b1e', relief='ridge',
-                             activeforeground = '#d52b1e')
+                             activeforeground = '#d52b1e', command= lambda: (Buy.payment(root= root, payment_method= payment_method.get(),
+                                                                                         address= address_entry.get(), nation= nation_entry.get(),
+                                                                                         cep= cep_entry.get(), phone= phone_entry.get(), cpf= cpf_entry.get()),
+                                                                                         payment_method.delete(0, tk.END),
+                                                                                         address_entry.delete(0, tk.END),
+                                                                                         nation_entry.delete(0, tk.END),
+                                                                                         cep_entry.delete(0, tk.END),
+                                                                                         phone_entry.delete(0, tk.END),
+                                                                                         cpf_entry.delete(0, tk.END)))
     confirm_buy.place(x= 650, y= 400)
 
     root.mainloop()

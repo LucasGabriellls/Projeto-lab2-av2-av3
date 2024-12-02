@@ -60,10 +60,14 @@ class Buy:
 
     @staticmethod
     def check_buy(id_product, amount, payment= None):
+        global qnt_prod
+        global id_prod
+
+        id_prod = id_product
         result_id = DataBaseProduct.id_product_search(id_product)
         if result_id:
             payment = ''
-            DataBaseOrder.order(amount, id_product, id_order, payment)
+            qnt_prod = DataBaseOrder.order(amount, id_product, id_order)
             messagebox.showinfo('Informação', 'Produto adicionado com sucesso.')
         else:
             messagebox.showerror('Erro', 'Não existe nenhum produto com esse ID.')
@@ -89,8 +93,17 @@ class Buy:
 
     @staticmethod   
     def payment(root, payment_method, address, nation, cep, phone, cpf):
+        from View.home import sign_in
+
+
         if payment_method and address and nation and cep and phone and cpf:
             id_user = DataBaseOrder.select_id_user(id_order)
-            
+            DataBaseUser.update_user(id= id_user, address= address, nation= nation, cep= cep, phone= phone, cpf= cpf)
+            DataBaseOrder.order_payment(id= id_order, payment_method= payment_method, status= 'APROVADO')
+            messagebox.showinfo('Informação', 'Pedido realizado com sucesso.')   
+            DataBaseOrder.delete_stock_db(id_prod= id_prod, qndt= qnt_prod)
+            root.destroy() 
+            sign_in()    
         else:
             messagebox.showerror('ERRO', 'Digite todas as informações pedidas.')
+
